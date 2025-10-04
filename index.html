@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuessWord</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body >
+    <div id="welcome-screen">
+        <h1>Ready. Set. Guess!</h1>
+        <h4>4 Letters - 8 Chances. Go!</h4>
+        <button id="play-button" onclick="startGame()">▶ Play</button>
+    </div>
+    <header>
+        <div class="nav">
+            <div id="help-icon" title="Help" onclick="toggleHelpBox()">❓</div>
+            <div id="stats-icon"  title="View Stat">📊</div>
+            <div id="leaderboard-icon" title="View Leaderboard" onclick="toggleLeaderboard()">🏆</div>
+            
+            <div id="help-popup">
+                <h2>How to Play?</h2>
+                <p>You get <strong>4 attempts</strong> to guess the 4-letter word.</p>
+                <ul>
+                    <li><span class="circle green"></span> <strong>Green:</strong> Letter is correct and in the correct position.</li>
+                    <li><span class="circle yellow"></span> <strong>Yellow:</strong> Letter is correct but in the wrong position.</li>
+                </ul>
+                <h3>Example</h3>
+                <div class="example-row">
+                    <div class="example-letter">B</div>
+                    <div class="example-letter">A</div>
+                    <div class="example-letter">K</div>
+                    <div class="example-letter">E</div>
+                    <div class="circle green">1</div>
+                    <div class="circle yellow">2</div>
+                </div>
+                <p>In this guess, one letter is in the correct position (green), and one is in the wrong position but correct letter (yellow).</p>
+                <button onclick="toggleHelpBox()">Close</button>
+            </div>
+            <div id="leaderboard-popup" class="popup hidden">
+                <h2>🏆 Leaderboard</h2>
+                <ol id="leaderboard-list"></ol>
+                <button onclick="toggleLeaderboard()">Close</button>
+             </div>
+
+            <div id="stats-popup" class="hidden" >
+                <div class="custom-alert-content " style="width: 500px; text-align: left; background-color: white;">
+                    <h2 style="text-align: center; background-color: #B22222;">📈 Your Stats</h2>
+                    <p><strong>Name:</strong> <span id="stat-name"></span></p>
+                    <p><strong>Games Played:</strong> <span id="stat-played">0</span></p>
+                    <p><strong>Wins:</strong> <span id="stat-wins">0</span></p>
+                    <p><strong>Losses:</strong> <span id="stat-losses">0</span></p>
+                    <button onclick="toggleStatsBox()">Close</button>
+                </div>
+            </div>
+
+
+            
+            <h1>GUESS WORD</h1><h3 id="player-name" style="text-align: center;"></h3>
+        </div>
+        <hr>
+    </header>
+    <div class="input-section">
+        <div class="guess-section">
+            <div class="chances">
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+
+                <div class="circle-correct">
+
+                </div>
+                <div class="circle-incorrect">
+                    
+                </div>
+            </div>
+            <div class="chances">
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+
+                <div class="circle-correct">
+
+                </div>
+                <div class="circle-incorrect">
+                    
+                </div>
+            </div>
+            <div class="chances">
+               <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <div class="circle circle-correct">
+
+                </div>
+                <div class="circle circle-incorrect">
+                    
+                </div>
+            </div>
+            <div class="chances">
+               <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <div class="circle-correct">
+
+                </div>
+                <div class="circle-incorrect">
+                </div>
+            </div>
+            <div class="chances">
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <div class="circle-correct">
+
+                </div>
+                <div class="circle-incorrect">
+                    
+                </div>
+            </div>
+            <div class="chances">
+               <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <div class="circle-correct">
+
+                </div>
+                <div class="circle-incorrect">
+                    
+                </div>
+            </div>
+            <div class="chances">
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <div class="circle-correct">
+
+                </div>
+                <div class="circle-incorrect">
+                    
+                </div>
+            </div>
+            <div class="chances">
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <input type="text" class="box" maxlength="1" onkeydown="handelKey(event); isLetter(event)" >
+                <div class="circle-correct">
+
+                </div>
+                <div class="circle-incorrect">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="custom-alert" class="custom-alert hidden">
+        <div class="custom-alert-content-WL" id="alert-message">
+        </div>
+    </div>
+
+    
+    
+    <footer>
+        <hr>
+        <div class="foot-panel">
+            Created by @Roshni.
+        </div>
+        
+    </footer>
+    <script src="guess4.js"></script>
+</body>
+</html>
+</html>
